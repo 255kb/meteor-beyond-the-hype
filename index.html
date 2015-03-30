@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Meteor - Beyond the hype</title>
+
+		<meta name="description" content="Presentation of Meteor framework @ JSLuxembourg (March 30th)">
+		<meta name="author" content="Guillaume Monnet">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/custom.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Meteor</h1>
+					<h3>Beyond the hype</h3>
+					<p><small>by <a href="http://255kb.com">Guillaume Monnet</a> / <a href="http://twitter.com/255kb">@255kb</a></small></p>
+				</section>
+
+				<section>
+					<h2>Hype?</h2>
+					<ul>
+						<li>#10 on Github</li>
+                        <li>~ 11M$ in funding</li>
+                        <li>Worldwide Meteor day for 1.0 (134 cities, 4000 devs)</li>
+                        <li>Fast growing community</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Why?</h2>
+				</section>
+
+				<section>
+					<h2>Typical stack</h2>
+                    <p>NodeJS, Express, Backbone/Angular, socket.io, MongoDB, Phonegap, Grunt, ...</p>
+				</section>
+
+				<section>
+					<h2>Meteor stack</h2>
+					<p>Meteor.</p>
+				</section>
+
+				<section>
+					<h2>Meteor includes</h2>
+					<ul>
+						<li>Templating system (Spacebars)</li>
+						<li>Reactivity (Blaze & Tracker)</li>
+						<li>Websocket (DDP)</li>
+						<li>Full stack DB drivers</li>
+						<li>Backend/API (methods)</li>
+						<li>Package system</li>
+                        <li>Build system</li>
+						<li>Mobile app (Phonegap)</li>
+						<li>Accounts system (email + social login)</li>
+						<li>...</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Meteor best feature: Reactivity</h2>
+					<p>Data is automatically kept synced everywhere:</p>
+
+                    <img src="img/reactivity-schema.png">
+                    <p><a href="http://localhost:3000">DEMO</a></p>
+				</section>
+
+                <section>
+                    <h2>Other cool features</h2>
+                </section>
+
+                <section>
+                    <h2>Easy to install</h2>
+                    <pre><code class="bash">> curl https://install.meteor.com/ | sh</code></pre>
+                    <p>Create a new app:</p>
+                    <pre><code class="bash" data-trim>
+> meteor create myapp
+> cd myapp
+> meteor
+
+=> Started proxy.
+=> Started MongoDB.
+=> Started your app.
+
+=> App running at: http://localhost:3000/</code></pre>
+                </section>
+
+                <section>
+                    <h2>Easy to deploy</h2>
+                    <p>Deploy on Meteor's servers (it's free!): </p>
+                    <pre><code class="bash">> meteor deploy</code></pre>
+                    <p>&rarr; myapp.meteor.com</p>
+                    <pre><code class="bash">> meteor deploy myapp.mydomain.com</code></pre>
+                    <p>&rarr; myapp.mydomain.com</p>
+                </section>
+
+                <section>
+                    <h2>Easy mobile apps</h2>
+                    <p>Add platforms:</p>
+                    <pre><code class="bash">> meteor add-platform ios/android</code></pre>
+                    <p>Test on virtual devices:</p>
+                    <pre><code class="bash">> meteor run ios/android</code></pre>
+                    <p>Build:</p>
+                    <pre><code class="bash">> meteor build</code></pre>
+                    <p><em>iOS requires Xcode, Android SDK will be automatically downloaded</em></p>
+                </section>
+
+                <section>
+                    <h2>User accounts</h2>
+                    <ul style="list-style: none;">
+                        <li>&rarr; Email + oAuth (Twitter, Facebook, Google, GitHub, etc)</li>
+                        <li>&rarr; Easy API to build on (create your own UI, specific needs...)</li>
+                    </ul>
+                    <p>Just add some packages:<br>accounts-base, accounts-password, accounts-ui, accounts-facebook, ...</p>
+                    <p><a href="http://localhost:5000">DEMO</a></p>
+                </section>
+
+                <section>
+                    <h2>Hot code push</h2>
+                    <p>Code updates are automatically pushed to clients</p>
+                    <p>Triggers a page refresh (not for CSS)</p>
+                </section>
+                <section>
+                    <h2>Latency compensation</h2>
+                    <p>A method can be replicated on client side in order to simulate the server call.</p>
+                    <pre><code class="javascript" data-trim>
+Meteor.methods({
+    myMethod: function(arg1, arg2) {
+        MyCollection.insert({name: arg1, value: arg2});
+    }
+});
+                    </code></pre>
+                    <ul style="list-style: none;">
+                        <li>&rarr; call the server</li>
+                        <li>&rarr; simulate the method on the client</li>
+                        <li>&rarr; validate/invalidate depending on the server response</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Is it reliable?</h2>
+                    <ul>
+                        <li>Well known technologies (NodeJS, MongoDB)</li>
+                        <li>Same scaling questions than any other NodeJS app</li>
+                        <li>Lots of production apps (Respond.ly, Workpop, etc)</li>
+                        <li>Frequent updates</li>
+                        <li>Very reactive community</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>New packages everyday</h2>
+                    <p>(for everything)</p>
+                    <ul>
+                        <li>Routes: <a href="https://github.com/iron-meteor/iron-router">Iron router</a></li>
+                        <li>DB schema: <a href="https://github.com/aldeed/meteor-collection2">Collection2</a></li>
+                        <li>Automatic forms creation: <a href="https://github.com/aldeed/meteor-autoform">Autoform</a></li>
+                        <li>Load balancing: <a href="https://github.com/meteorhacks/cluster">Cluster</a></li>
+                        <li>SEO: <a href="https://atmospherejs.com/meteor/spiderable">Spiderable</a> / <a href="https://github.com/meteorhacks/meteor-ssr">SSR</a></li>
+                        <li>File upload: <a href="https://github.com/CollectionFS/Meteor-CollectionFS">CollectionFS</a></li>
+                        <li>Offline client DB: <a href="https://github.com/GroundMeteor/db">Ground DB</a></li>
+                        <li>DOS / flood firewall: <a href="https://github.com/meteorhacks/sikka">Sikka</a></li>
+                        <li>App monitoring: <a href="https://kadira.io/">Kadira</a></li>
+                        <li>...</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Does it play well will the outside world?</h2>
+                    <ul>
+                        <li>Meteor backend + AngularJS</li>
+                        <li>Meteor backend + DDP in native apps / hardware (Arduino, ...)</li>
+                        <li>Integration with Ionic, Famo.us frameworks (wip)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Future developments</h2>
+                    <ul>
+                        <li>Support for MySQL / Redis</li>
+                        <li>Galaxy (PaaS)</li>
+                        <li>Windows version (in RC now)</li>
+                        <li>Server side rendering?</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Tips</h2>
+                </section>
+
+                <section>
+                    <h2>#1 Use naming convention</h2>
+                    <pre><code class="bash" data-trim>
+lib/                    # common code
+
+client/                 # client code
+client/template.html    # templates always loaded first
+client/lib/             # client code loaded first
+client/main.html        # 'main*' files always loaded last
+
+server/                 # server code
+server/lib/             # server code loaded first
+
+private/                # server assets library
+
+public/favicon.ico      # public files
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>#2 Don't publish everything</h2>
+                    <p>Remove default 'autopublish' package</p>
+                    <p>Use publish / subscribe</p>
+                    <pre><code class="javascript" data-trim>
+//SERVER
+Meteor.publish('userMessages', function(userId){
+    return Messages.find({userId: userId});
+});
+//CLIENT
+Meteor.subscribe('userMessages');//in a route or a template
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>#3 Wait for subscriptions</h2>
+                    <pre><code class="javascript" data-trim>
+//CLIENT
+messagesSubscription = Meteor.subscribe('userMessages');
+
+// in your template
+if(messagesSubscription.ready()) {
+  //do something
+}
+
+// or in a Route
+Router.route('/myroute', {
+  name: 'myroute',
+  waitOn: function() {
+    return Meteor.subscribe('userMessages');
+  }
+});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>#4 DB everywhere</h2>
+                    <p>e.g. use 'sort' on both client and server.</p>
+                    <pre><code class="javascript" data-trim>
+//SERVER
+Meteor.publish('roomMessages', function(id){
+//last ten messages
+return Messages.find({roomId: id}, {sort: {createdAt: -1}, limit: 10});
+});
+//CLIENT
+Messages.find({roomId: id}, {sort: {createdAt: 1}});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>#5 Use methods</h2>
+                    <pre><code class="javascript" data-trim>
+//SERVER
+Meteor.methods({
+    myMethod: function(arg1, arg2) {
+        //do domething
+    }
+});
+//CLIENT
+Meteor.call('myMethod', callback);
+                    </code></pre>
+                    <p>What about deny / allow?</p>
+                    <pre><code class="javascript" data-trim>
+//SERVER
+Messages.allow({
+    insert: function (userId, doc) {
+        return true;
+    }
+});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>#6 Restful API</h2>
+                    <p>Just use the router on the server:</p>
+                    <pre><code class="javascript" data-trim>
+Router.route('/users', { where: 'server' })
+    .get(function () {
+        // GET /users
+    })
+    .post(function () {
+        // POST /users
+    })
+    .put(function () {
+        // PUT /users
+    });
+                    </code></pre>
+                </section>
+
+				<section>
+					<h2>Where to go next?</h2>
+                    <p>&rarr; Official tutorial</p>
+                    <p><a href="https://www.meteor.com/install">meteor.com/install</a></p>
+                    <p>&rarr; Other great resources (docs, books, forums, etc)</p>
+                    <p><a href="https://www.meteor.com/learn">meteor.com/learn</a></p>
+				</section>
+
+				<section>
+					<h2>Thank you!</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
